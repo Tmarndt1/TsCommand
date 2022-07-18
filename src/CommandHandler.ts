@@ -1,4 +1,4 @@
-import { Command } from "Command";
+import { Command } from "./Command";
 
 /**
  * CommandHandler that is responsible for executing the corresponding Command

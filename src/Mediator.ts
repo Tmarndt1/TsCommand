@@ -1,5 +1,5 @@
-import { Command } from "Command";
-import { CommandHandler } from "CommandHandler";
+import { Command } from "./Command";
+import { CommandHandler } from "./CommandHandler";
 
 /**
  * Mediator class that mediates the correct Command to its corresponding CommandHandler
@@ -31,7 +31,7 @@ export class Mediator {
      * @returns {Promise<TResult>} A Promise of type TResult
      */
     public execute<TResult>(command: Command<TResult>): Promise<TResult> {
-        let handler: CommandHandler<Command<TResult>, TResult> = this.handlers.find(x => (x as any)["$name"]);
+        let handler: CommandHandler<Command<TResult>, TResult> = this.handlers.find(x => (x as any)["$name"]) as CommandHandler<Command<TResult>, TResult>;
 
         if (handler == null) return Promise.reject("CommandHandler not found");
 
