@@ -5,7 +5,7 @@ import { CommandHandler } from "./CommandHandler";
  * Mediator class that mediates the correct Command to its corresponding CommandHandler
  */
 export class Mediator {
-    private handlers: CommandHandler<any, any>[] = [];
+    private _handlers: CommandHandler<any, any>[] = [];
 
     /**
      * Constructor that requires a collection of CommandHandlers to register
@@ -13,7 +13,7 @@ export class Mediator {
      */
     public constructor(commandHandlers: CommandHandler<any, any>[]) {
         if (commandHandlers instanceof Array) {
-            this.handlers = commandHandlers.filter(x => x instanceof CommandHandler)
+            this._handlers = commandHandlers.filter(x => x instanceof CommandHandler)
         }
     }
 
@@ -22,7 +22,7 @@ export class Mediator {
      * @param {CommandHandler<any, any>} commandHandler The CommandHandler to register
      */
     public register(commandHandler: CommandHandler<any, any>) {
-        this.handlers.push(commandHandler);
+        this._handlers.push(commandHandler);
     }
 
     /**
@@ -32,7 +32,7 @@ export class Mediator {
      */
     public execute<TResult>(command: Command<TResult>): Promise<TResult> {
         let handler: CommandHandler<Command<TResult>, TResult> = 
-            this.handlers.find(x => (x as any)["$name"]) as CommandHandler<Command<TResult>, TResult>;
+            this._handlers.find(x => (x as any)["$name"]) as CommandHandler<Command<TResult>, TResult>;
 
         if (handler == null) return Promise.reject("CommandHandler not found");
 
