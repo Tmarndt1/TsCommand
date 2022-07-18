@@ -3,7 +3,7 @@ import { Command } from "./Command";
 /**
  * CommandHandler that is responsible for executing the corresponding Command
  */
-export abstract class CommandHandler<TCommand extends Command<TResult>, TResult> {
+export abstract class CommandHandler<in TCommand extends Command<TResult>, out TResult> {
     private $name: string;
 
     /**
